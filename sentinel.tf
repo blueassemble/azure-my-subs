@@ -16,7 +16,7 @@ resource "azurerm_log_analytics_workspace" "sentinel" {
     sku = "PerGB2018"
 }
 
-resource "azurerm_sentinel_log_analytics_workspace_onboarding" "example" {
+resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {
   resource_group_name          = azurerm_resource_group.sentinel.name
   workspace_name               = azurerm_log_analytics_workspace.sentinel.name
   customer_managed_key_enabled = false

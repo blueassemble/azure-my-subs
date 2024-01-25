@@ -1,4 +1,4 @@
-module "naming" {
+module "sentinel" {
   source  = "Azure/naming/azurerm"
   version = "0.4.0"
   suffix = ["sentinel"]

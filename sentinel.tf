@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "sentinel" {
 }
 
 resource "azurerm_log_analytics_workspace" "sentinel" {
-    name = module.sentinel.log_analytics_workspace
+    name = module.sentinel.log_analytics_workspace.name
     location = azurerm_resource_group.sentinel.location
     resource_group_name = azurerm_resource_group.sentinel.name
     sku = "PerGB2018"

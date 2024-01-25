@@ -5,12 +5,12 @@ module "sentinel" {
 }
 
 resource "azurerm_resource_group" "sentinel" {
-    name = module.naming.resource_group.name
+    name = module.sentinel.resource_group.name
     location = var.location
 }
 
 resource "azurerm_log_analytics_workspace" "sentinel" {
-    name = module.naming.log_analytics_workspace
+    name = module.sentinel.log_analytics_workspace
     location = azurerm_resource_group.sentinel.location
     resource_group_name = azurerm_resource_group.sentinel.name
     sku = "PerGB2018"

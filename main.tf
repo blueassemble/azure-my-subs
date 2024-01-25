@@ -2,3 +2,6 @@
 #   name = var.avd_resource_group_name
 #   location = "korea central"
 # }
+
+data azurerm_client_config "current" {
+}

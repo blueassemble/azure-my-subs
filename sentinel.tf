@@ -22,7 +22,12 @@ resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {
   customer_managed_key_enabled = false
 }
 
-resource "azurerm_sentinel_data_connector_azure_active_directory" "sentinel" {
-  name                       = "sentinel-entra-connect"
-  log_analytics_workspace_id = azurerm_sentinel_log_analytics_workspace_onboarding.sentinel.workspace_id
+resource "azurerm_monitor_diagnostic_setting" "activity_log" {
+  name                       = "activity-log-sentinel"
+  target_resource_id         = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.sentinel.id
+
+  enabled_log {
+    category = "Administrative"
+  }
 }

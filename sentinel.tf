@@ -1,19 +1,19 @@
 module "sentinel" {
   source  = "Azure/naming/azurerm"
   version = "0.4.0"
-  suffix = ["sentinel"]
+  suffix  = ["sentinel"]
 }
 
 resource "azurerm_resource_group" "sentinel" {
-    name = module.sentinel.resource_group.name
-    location = var.location
+  name     = module.sentinel.resource_group.name
+  location = var.location
 }
 
 resource "azurerm_log_analytics_workspace" "sentinel" {
-    name = module.sentinel.log_analytics_workspace.name
-    location = azurerm_resource_group.sentinel.location
-    resource_group_name = azurerm_resource_group.sentinel.name
-    sku = "PerGB2018"
+  name                = module.sentinel.log_analytics_workspace.name
+  location            = azurerm_resource_group.sentinel.location
+  resource_group_name = azurerm_resource_group.sentinel.name
+  sku                 = "PerGB2018"
 }
 
 resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {

@@ -9,7 +9,7 @@
 		"ghcr.io/devcontainers/features/terraform:1": {},
 		"ghcr.io/eitsupi/devcontainer-features/jq-likes:2": {},
 		"ghcr.io/stuartleeks/dev-container-features/azure-cli-persistence:0": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -18,7 +18,8 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "echo alias tf='terraform' >> ~/.bash_profile",
+	"postStartCommand": "source ~/.bash_profile"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

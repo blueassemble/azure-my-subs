@@ -1,16 +1,16 @@
-module "sentinel" {
+module "naming_sentinel" {
   source  = "Azure/naming/azurerm"
   version = "0.4.0"
   suffix  = ["sentinel"]
 }
 
 resource "azurerm_resource_group" "sentinel" {
-  name     = module.sentinel.resource_group.name
+  name     = module.naming_sentinel.resource_group.name
   location = var.location
 }
 
 resource "azurerm_log_analytics_workspace" "sentinel" {
-  name                = module.sentinel.log_analytics_workspace.name
+  name                = module.naming_sentinel.log_analytics_workspace.name
   location            = azurerm_resource_group.sentinel.location
   resource_group_name = azurerm_resource_group.sentinel.name
   sku                 = "PerGB2018"
@@ -26,6 +26,7 @@ resource "azurerm_monitor_diagnostic_setting" "activity_log" {
   name                       = "activity-log-sentinel"
   target_resource_id         = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.sentinel.id
+  # workspace_id = azurerm_log_analytics_workspace.sentinel.workspace_id // in azurerm 4.0
 
   enabled_log {
     category = "Administrative"

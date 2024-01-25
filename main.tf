@@ -2,8 +2,3 @@
 #   name = var.avd_resource_group_name
 #   location = "korea central"
 # }
-
-resource "azurerm_resource_group" "sentinel" {
-    name = "${module.naming.resource_group.name}-sentinel"
-    location = var.location
-}

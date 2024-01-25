@@ -46,7 +46,7 @@ resource "azurerm_monitor_diagnostic_setting" "activity_log" {
     category = "Policy"
   }
   enabled_log {
-    category = "Policy"
+    category = "Autoscale"
   }
   enabled_log {
     category = "ResourceHealth"

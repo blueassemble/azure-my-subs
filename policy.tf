@@ -17,6 +17,6 @@ resource "azurerm_user_assigned_identity" "policy" {
 
 resource "azurerm_resource_policy_assignment" "deploy_vm_auto_shutdown" {
   name                 = "deploy-vm-autoshutdown-assignment"
-  resource_id          = data.azurerm_client_config.current.id
+  resource_id          = data.azurerm_client_config.current.subscription_id
   policy_definition_id = azurerm_policy_definition.deploy_vm_auto_shutdown.id
 }

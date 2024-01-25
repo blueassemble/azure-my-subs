@@ -24,6 +24,7 @@ resource "azurerm_subscription_policy_assignment" "deploy_vm_auto_shutdown" {
   name                 = "deploy-vm-autoshutdown-assignment"
   subscription_id          = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
   policy_definition_id = azurerm_policy_definition.deploy_vm_auto_shutdown.id
+  location = azurerm_user_assigned_identity.policy.location
   identity {
     type = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.policy.id]

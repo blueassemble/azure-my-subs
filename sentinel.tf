@@ -21,3 +21,8 @@ resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {
   workspace_name               = azurerm_log_analytics_workspace.sentinel.name
   customer_managed_key_enabled = false
 }
+
+resource "azurerm_sentinel_data_connector_azure_active_directory" "sentinel" {
+  name                       = "sentinel-entra-connect"
+  log_analytics_workspace_id = azurerm_sentinel_log_analytics_workspace_onboarding.sentinel.workspace_id
+}

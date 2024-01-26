@@ -6,6 +6,11 @@
 data azurerm_client_config "current" {
 }
 
+module "naming_default" {
+  source  = "Azure/naming/azurerm"
+  version = "0.4.0"
+  suffix  = ["cyan"]
+}
 
 resource "azurerm_resource_group" "policy" {
     name = module.naming_policy.resource_group.name

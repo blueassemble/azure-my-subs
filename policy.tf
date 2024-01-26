@@ -30,3 +30,13 @@ resource "azurerm_subscription_policy_assignment" "deploy_vm_auto_shutdown" {
     identity_ids = [azurerm_user_assigned_identity.policy.id]
   }
 }
+
+resource "azurerm_policy_set_definition" "initiative" {
+  name         = "myInitiative"
+  policy_type  = "Custom"
+  display_name = "My Initiative Definition"
+
+  policy_definition_reference {
+    policy_definition_id = azurerm_policy_definition.deploy_vm_auto_shutdown.id
+  }
+}

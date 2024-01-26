@@ -158,11 +158,11 @@ POLICY_RULE
                 "displayName": "Scheduled Shutdown Time",
                 "description": "Daily Scheduled shutdown time. i.e. 2300 = 11:00 PM"
             },
-            "defaultValue": ""
+            "defaultValue": "1900"
         },
         "timeZoneId": {
             "type": "String",
-            "defaultValue": "",
+            "defaultValue": "Korea Standard Time",
             "metadata": {
                 "displayName": "Time zone",
                 "description": "The time zone ID (e.g. Pacific Standard time)."
@@ -170,7 +170,7 @@ POLICY_RULE
         },
         "EnableNotification": {
             "type": "String",
-            "defaultValue": "Enabled",
+            "defaultValue": "Disabled",
             "metadata": {
                 "displayName": "Send Notification before auto-shutdown",
                 "description": "If notifications are enabled for this schedule (i.e. Enabled, Disabled)."

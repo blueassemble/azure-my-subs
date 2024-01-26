@@ -1,8 +1,8 @@
 resource "azurerm_policy_definition" "deploy_vm_auto_shutdown" {
-  name         = "Deploy Virtual Machine Auto Shutdown Schedule"
+  name         = "Deploy Virtual Machine Autoshutdown Schedule"
   policy_type  = "Custom"
   mode         = "Indexed"
-  display_name = "Deploy Virtual Machine Auto Shutdown Schedule"
+  display_name = "Deploy Virtual Machine Autoshutdown Schedule"
 
   metadata = <<METADATA
 {

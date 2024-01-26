@@ -15,8 +15,8 @@ resource "azurerm_subscription_policy_assignment" "deploy_vm_auto_shutdown" {
   }
 }
 
-resource "azurerm_policy_set_definition" "initiative" {
-  name         = "myInitiative"
+resource "azurerm_policy_set_definition" "my_initiative" {
+  name         = "myInitiativeDefinition"
   policy_type  = "Custom"
   display_name = "My Initiative Definition"
 

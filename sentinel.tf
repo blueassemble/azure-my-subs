@@ -17,8 +17,9 @@ resource "azurerm_log_analytics_workspace" "sentinel" {
 }
 
 resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {
-  resource_group_name          = azurerm_resource_group.sentinel.name
-  workspace_name               = azurerm_log_analytics_workspace.sentinel.name
+  # resource_group_name          = azurerm_resource_group.sentinel.name
+  # workspace_name               = azurerm_log_analytics_workspace.sentinel.name
+  workspace_id = azurerm_log_analytics_workspace.sentinel.id
   customer_managed_key_enabled = false
 }
 
@@ -26,7 +27,6 @@ resource "azurerm_monitor_diagnostic_setting" "activity_log" {
   name                       = "activity-log-sentinel"
   target_resource_id         = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.sentinel.id
-  # workspace_id = azurerm_log_analytics_workspace.sentinel.workspace_id // in azurerm 4.0
 
   enabled_log {
     category = "Administrative"

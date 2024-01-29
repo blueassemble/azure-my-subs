@@ -140,3 +140,11 @@ resource "azurerm_windows_virtual_machine" "shi-ir" {
     version   = "latest"
   }
 }
+
+output "mssql_ip" {
+  value = azurerm_public_ip.shi.ip_address
+}
+
+output "ir_ip" {
+  value = azurerm_public_ip.shi-ir.ip_address
+}

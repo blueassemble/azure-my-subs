@@ -90,4 +90,8 @@ resource "azurerm_mssql_virtual_machine" "shi" {
     maintenance_window_duration_in_minutes = 60
     maintenance_window_starting_hour       = 2
   }
+
+  depends_on = [
+    azurerm_windows_virtual_machine.shi
+  ]
 }

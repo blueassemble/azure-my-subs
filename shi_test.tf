@@ -98,7 +98,7 @@ resource "azurerm_mssql_virtual_machine" "shi" {
 }
 
 resource "azurerm_public_ip" "shi-ir" {
-  name                = module.naming_shi.public_ip.name
+  name                = "${module.naming_shi.public_ip.name}-ir"
   resource_group_name = azurerm_resource_group.shi.name
   location            = azurerm_resource_group.shi.location
   allocation_method   = "Static"

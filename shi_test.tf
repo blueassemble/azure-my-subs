@@ -5,12 +5,12 @@ module "naming_shi" {
 }
 
 resource "azurerm_resource_group" "shi" {
-  name     = module.naming_shi.resource_group
+  name     = module.naming_shi.resource_group.name
   location = var.location
 }
 
 resource "azurerm_data_factory" "shi" {
-  name                = module.naming_shi.azure_data_factory
+  name                = module.naming_shi.azure_data_factory.name
   location            = azurerm_resource_group.shi.location
   resource_group_name = azurerm_resource_group.shi.name
 }

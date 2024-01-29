@@ -1,6 +1,6 @@
 module "audit_ahub_definition" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_AHUB_for_eligible_vms.json"
+  file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
   
   policy_name         = (local.audit_ahub).properties.displayName
   display_name        = (local.audit_ahub).properties.displayName
@@ -19,7 +19,7 @@ locals {
 
 module "audit_unused_serverfarms" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_unused_serverfarms.json"
+  file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
   
   policy_name         = (local.audit_unused_serverfarms).properties.displayName
   display_name        = (local.audit_unused_serverfarms).properties.displayName

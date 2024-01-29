@@ -105,7 +105,7 @@ resource "azurerm_public_ip" "shi-ir" {
 }
 
 resource "azurerm_network_interface" "shi-ir" {
-  name                = module.naming_shi.network_interface.name
+  name                = "${module.naming_shi.network_interface.name}-ir"
   location            = azurerm_resource_group.shi.location
   resource_group_name = azurerm_resource_group.shi.name
 

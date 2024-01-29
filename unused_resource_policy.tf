@@ -1,6 +1,6 @@
 module "audit_ahub_definition" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
+  # file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
   
   policy_name         = (local.audit_ahub).properties.displayName
   display_name        = (local.audit_ahub).properties.displayName
@@ -14,12 +14,12 @@ module "audit_ahub_definition" {
 }
 
 locals {
-  audit_ahub = jsondecode(file("policy_template/audit_AHUB_for_eligible_vms.json"))
+  audit_ahub = jsondecode(file("policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"))
 }
 
 module "audit_unused_serverfarms" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
+  # file_path           = "../policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"
   
   policy_name         = (local.audit_unused_serverfarms).properties.displayName
   display_name        = (local.audit_unused_serverfarms).properties.displayName
@@ -33,12 +33,12 @@ module "audit_unused_serverfarms" {
 }
 
 locals {
-  audit_unused_serverfarms = jsondecode(file("policy_template/audit_unused_serverfarms.json"))
+  audit_unused_serverfarms = jsondecode(file("policy_template/audit_cost_optimization/audit_AHUB_for_eligible_vms.json"))
 }
 
 module "audit_unused_disks" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_cost_optimization/audit_unused_disks.json"
+  # file_path           = "../policy_template/audit_cost_optimization/audit_unused_disks.json"
   
   policy_name         = (local.audit_unused_disks).properties.displayName
   display_name        = (local.audit_unused_disks).properties.displayName
@@ -52,12 +52,12 @@ module "audit_unused_disks" {
 }
 
 locals {
-  audit_unused_disks = jsondecode(file("policy_template/audit_unused_disks.json"))
+  audit_unused_disks = jsondecode(file("policy_template/audit_cost_optimization/audit_unused_disks.json"))
 }
 
 module "audit_unused_publicips" {
   source              = "gettek/policy-as-code/azurerm//modules/definition"
-  file_path           = "../policy_template/audit_cost_optimization/audit_unused_publicips.json"
+  # file_path           = "../policy_template/audit_cost_optimization/audit_unused_publicips.json"
   
   policy_name         = (local.audit_unused_publicips).properties.displayName
   display_name        = (local.audit_unused_publicips).properties.displayName
@@ -71,5 +71,5 @@ module "audit_unused_publicips" {
 }
 
 locals {
-  audit_unused_publicips = jsondecode(file("policy_template/audit_unused_publicips.json"))
+  audit_unused_publicips = jsondecode(file("policy_template/audit_cost_optimization/audit_unused_publicips.json"))
 }

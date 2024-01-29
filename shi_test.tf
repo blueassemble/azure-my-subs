@@ -69,8 +69,8 @@ resource "azurerm_windows_virtual_machine" "shi" {
   }
 
   source_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
+    publisher = "MicrosoftSQLServer"
+    offer     = "SQL-2016SP3-ws2019"
     sku       = "2016-Datacenter"
     version   = "latest"
   }

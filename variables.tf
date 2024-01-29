@@ -5,3 +5,9 @@
 variable "location" {
   default = "east us"
 }
+
+variable "admin_username" {
+}
+
+variable "admin_password" {
+}

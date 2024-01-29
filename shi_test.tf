@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "shi" {
 }
 
 resource "azurerm_data_factory" "shi" {
-  name                = module.naming_shi.azure_data_factory.name
+  name                = module.naming_shi.data_factory.name
   location            = azurerm_resource_group.shi.location
   resource_group_name = azurerm_resource_group.shi.name
 }

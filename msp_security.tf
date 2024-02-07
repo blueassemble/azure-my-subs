@@ -71,25 +71,25 @@ resource "azurerm_windows_virtual_machine" "msp_security" {
   }
 }
 
-# resource "azurerm_mssql_virtual_machine" "msp_security" {
-#   virtual_machine_id               = azurerm_windows_virtual_machine.msp_security.id
-#   sql_license_type                 = "PAYG"
-#   r_services_enabled               = true
-#   sql_connectivity_port            = 1433
-#   sql_connectivity_type            = "PUBLIC"
-#   sql_connectivity_update_password = var.admin_password
-#   sql_connectivity_update_username = var.admin_username
+resource "azurerm_mssql_virtual_machine" "msp_security" {
+  virtual_machine_id               = azurerm_windows_virtual_machine.msp_security.id
+  sql_license_type                 = "PAYG"
+  r_services_enabled               = true
+  sql_connectivity_port            = 1433
+  sql_connectivity_type            = "PUBLIC"
+  sql_connectivity_update_password = var.admin_password
+  sql_connectivity_update_username = var.admin_username
 
-#   auto_patching {
-#     day_of_week                            = "Sunday"
-#     maintenance_window_duration_in_minutes = 60
-#     maintenance_window_starting_hour       = 2
-#   }
+  auto_patching {
+    day_of_week                            = "Sunday"
+    maintenance_window_duration_in_minutes = 60
+    maintenance_window_starting_hour       = 2
+  }
 
-#   depends_on = [
-#     azurerm_windows_virtual_machine.msp_security
-#   ]
-# }
+  depends_on = [
+    azurerm_windows_virtual_machine.msp_security
+  ]
+}
 
 output "mssql_ip" {
   value = azurerm_public_ip.msp_security.ip_address

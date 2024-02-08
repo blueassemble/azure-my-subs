@@ -27,12 +27,15 @@ resource "azurerm_subnet" "msp_security" {
   ]
 }
 
-# resource "azurerm_public_ip" "msp_security" {
-#   name                = module.msp_security.public_ip.name
-#   resource_group_name = azurerm_resource_group.msp_security.name
-#   location            = azurerm_resource_group.msp_security.location
-#   allocation_method   = "Static"
-# }
+resource "azurerm_public_ip" "msp_security" {
+  name                = module.msp_security.public_ip.name
+  resource_group_name = azurerm_resource_group.msp_security.name
+  location            = azurerm_resource_group.msp_security.location
+  allocation_method   = "Static"
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
 resource "azurerm_network_interface" "msp_security" {
   name                = module.msp_security.network_interface.name
@@ -43,7 +46,7 @@ resource "azurerm_network_interface" "msp_security" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.msp_security.id
     private_ip_address_allocation = "Dynamic"
-    # public_ip_address_id = azurerm_public_ip.msp_security.id
+    public_ip_address_id = azurerm_public_ip.msp_security.id
   }
 }
 

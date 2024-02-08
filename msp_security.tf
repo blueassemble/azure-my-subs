@@ -91,6 +91,6 @@ resource "azurerm_mssql_virtual_machine" "msp_security" {
   ]
 }
 
-output "mssql_ip" {
-  value = azurerm_public_ip.msp_security.ip_address
-}
+# output "mssql_ip" {
+#   value = azurerm_public_ip.msp_security.ip_address
+# }

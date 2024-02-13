@@ -46,8 +46,30 @@ resource "azurerm_network_interface" "msp_security" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.msp_security.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.msp_security.id
+    public_ip_address_id          = azurerm_public_ip.msp_security.id
   }
+}
+
+resource "azurerm_network_security_group" "subnet" {
+  name                = "subnet=${module.msp_security.network_security_group.name}"
+  location            = azurerm_resource_group.msp_security.location
+  resource_group_name = azurerm_resource_group.msp_security.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "subnet" {
+  subnet_id                 = azurerm_subnet.msp_security.id
+  network_security_group_id = azurerm_network_security_group.subnet.id
+}
+
+resource "azurerm_network_security_group" "nic" {
+  name                = "nic=${module.msp_security.network_security_group.name}"
+  location            = azurerm_resource_group.msp_security.location
+  resource_group_name = azurerm_resource_group.msp_security.name
+}
+
+resource "azurerm_network_interface_security_group_association" "nic" {
+  network_interface_id      = azurerm_network_interface.msp_security.id
+  network_security_group_id = azurerm_network_security_group.nic.id
 }
 
 resource "azurerm_windows_virtual_machine" "msp_security" {

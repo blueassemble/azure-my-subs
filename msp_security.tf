@@ -51,7 +51,7 @@ resource "azurerm_network_interface" "msp_security" {
 }
 
 resource "azurerm_network_security_group" "subnet" {
-  name                = "subnet=${module.msp_security.network_security_group.name}"
+  name                = "subnet-${module.msp_security.network_security_group.name}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
 }
@@ -62,7 +62,7 @@ resource "azurerm_subnet_network_security_group_association" "subnet" {
 }
 
 resource "azurerm_network_security_group" "nic" {
-  name                = "nic=${module.msp_security.network_security_group.name}"
+  name                = "nic-${module.msp_security.network_security_group.name}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
 }

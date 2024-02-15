@@ -64,8 +64,8 @@ resource "azurerm_network_security_group" "subnet" {
       protocol = "Tcp"
       source_port_range = "*"
       destination_port_range = "80"
-      source_address_prefix = "*"
-      destination_address_prefix = "*"
+      source_address_prefixes = "*"
+      destination_address_prefixes = "*"
     }
   ]
 }
@@ -89,8 +89,8 @@ resource "azurerm_network_security_group" "nic" {
       protocol = "Tcp"
       source_port_range = "*"
       destination_port_range = "443"
-      source_address_prefix = "*"
-      destination_address_prefix = "*"
+      source_address_prefixes = "*"
+      destination_address_prefixes = "*"
     }
   ]
 }

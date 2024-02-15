@@ -18,8 +18,8 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "echo alias tf='terraform' >> ~/.bash_profile",
-	"postAttachCommand": "source ~/.bash_profile"
+	"postCreateCommand": "echo alias tf='terraform' >> ~/.zshrc",
+	"postStartCommand": "source ~/.zshrc"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

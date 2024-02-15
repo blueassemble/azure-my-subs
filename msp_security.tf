@@ -28,6 +28,7 @@ resource "azurerm_subnet" "msp_security" {
 }
 
 resource "azurerm_public_ip" "msp_security" {
+  count = 2
   name                = module.msp_security.public_ip.name
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
@@ -38,6 +39,7 @@ resource "azurerm_public_ip" "msp_security" {
 }
 
 resource "azurerm_network_interface" "msp_security" {
+  count = 2
   name                = module.msp_security.network_interface.name
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
@@ -46,7 +48,7 @@ resource "azurerm_network_interface" "msp_security" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.msp_security.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.msp_security.id
+    public_ip_address_id          = azurerm_public_ip.msp_security[count.index].id
   }
 }
 
@@ -74,6 +76,7 @@ resource "azurerm_subnet_network_security_group_association" "subnet" {
 }
 
 resource "azurerm_network_security_group" "nic" {
+  count = 2
   name                = "nic-${module.msp_security.network_security_group.name}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
@@ -93,11 +96,13 @@ resource "azurerm_network_security_group" "nic" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nic" {
-  network_interface_id      = azurerm_network_interface.msp_security.id
-  network_security_group_id = azurerm_network_security_group.nic.id
+  count = 2
+  network_interface_id      = azurerm_network_interface.msp_security[count.index].id
+  network_security_group_id = azurerm_network_security_group.nic[count.index].id
 }
 
 resource "azurerm_windows_virtual_machine" "msp_security" {
+  count              = 2
   name                = module.msp_security.virtual_machine.name
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
@@ -105,7 +110,7 @@ resource "azurerm_windows_virtual_machine" "msp_security" {
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   network_interface_ids = [
-    azurerm_network_interface.msp_security.id,
+    azurerm_network_interface.msp_security[count.index].id,
   ]
 
   os_disk {
@@ -122,7 +127,8 @@ resource "azurerm_windows_virtual_machine" "msp_security" {
 }
 
 resource "azurerm_mssql_virtual_machine" "msp_security" {
-  virtual_machine_id               = azurerm_windows_virtual_machine.msp_security.id
+  count = 2
+  virtual_machine_id               = azurerm_windows_virtual_machine.msp_security[count.index].id
   sql_license_type                 = "PAYG"
   r_services_enabled               = true
   sql_connectivity_port            = 1433

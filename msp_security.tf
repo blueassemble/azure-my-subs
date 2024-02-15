@@ -54,6 +54,20 @@ resource "azurerm_network_security_group" "subnet" {
   name                = "subnet-${module.msp_security.network_security_group.name}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
+
+  security_rule = [
+    {
+      name = "AllowHttp"
+      priority = 100
+      direction = "Inbound"
+      access = "Allow"
+      protocol = "Tcp"
+      source_port_range = "*"
+      destination_port_range = "80"
+      source_address_prefix = "*"
+      destination_address_prefix = "*"
+    }
+  ]
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet" {
@@ -65,6 +79,20 @@ resource "azurerm_network_security_group" "nic" {
   name                = "nic-${module.msp_security.network_security_group.name}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
+
+  security_rule = [
+    {
+      name = "AllowHttps"
+      priority = 100
+      direction = "Inbound"
+      access = "Allow"
+      protocol = "Tcp"
+      source_port_range = "*"
+      destination_port_range = "443"
+      source_address_prefix = "*"
+      destination_address_prefix = "*"
+    }
+  ]
 }
 
 resource "azurerm_network_interface_security_group_association" "nic" {

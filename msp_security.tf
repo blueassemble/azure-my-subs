@@ -40,7 +40,7 @@ resource "azurerm_public_ip" "msp_security" {
 
 resource "azurerm_network_interface" "msp_security" {
   count = 2
-  name                = module.msp_security.network_interface.name
+  name                = "${module.msp_security.network_interface.name}-${count.index}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
 

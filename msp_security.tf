@@ -29,7 +29,7 @@ resource "azurerm_subnet" "msp_security" {
 
 resource "azurerm_public_ip" "msp_security" {
   count = 2
-  name                = module.msp_security.public_ip.name
+  name                = "module.msp_security.public_ip.name-${count.index}"
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
   allocation_method   = "Static"
@@ -77,7 +77,7 @@ resource "azurerm_subnet_network_security_group_association" "subnet" {
 
 resource "azurerm_network_security_group" "nic" {
   count = 2
-  name                = "nic-${module.msp_security.network_security_group.name}"
+  name                = "nic-${module.msp_security.network_security_group.name}-${count.index}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
 

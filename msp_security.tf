@@ -104,6 +104,7 @@ resource "azurerm_network_interface_security_group_association" "nic" {
 resource "azurerm_windows_virtual_machine" "msp_security" {
   count              = 2
   name                = "${module.msp_security.virtual_machine.name}-${count.index}"
+  computer_name       = slice("${module.msp_security.virtual_machine.name}-${count.index}", 0, 15)
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
   size                = "Standard_F2"

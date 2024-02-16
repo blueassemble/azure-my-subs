@@ -58,8 +58,8 @@ resource "azurerm_network_security_group" "subnet" {
   resource_group_name = azurerm_resource_group.msp_security.name
 
   security_rule {
-    name                       = "AllowHttp"
-    priority                   = 100
+    name                       = "AllowInbound"
+    priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -67,6 +67,19 @@ resource "azurerm_network_security_group" "subnet" {
     destination_port_range     = "80"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
+  }
+  
+  security_rule {
+    name                       = "AllowOutbound"
+    priority                   = 120
+    direction                  = "Outbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  
   }
 }
 

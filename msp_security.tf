@@ -82,7 +82,7 @@ resource "azurerm_network_security_group" "nic" {
   resource_group_name = azurerm_resource_group.msp_security.name
 
   security_rule {
-    name                       = "AllowOutbound"
+    name                       = "AllowOutbound-${count.index}"
     priority                   = 110
     direction                  = "Outbound"
     access                     = "Allow"

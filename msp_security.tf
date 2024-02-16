@@ -28,7 +28,7 @@ resource "azurerm_subnet" "msp_security" {
 }
 
 resource "azurerm_public_ip" "msp_security" {
-  count = 2
+  count               = 2
   name                = "${module.msp_security.public_ip.name}-${count.index}"
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
@@ -39,7 +39,7 @@ resource "azurerm_public_ip" "msp_security" {
 }
 
 resource "azurerm_network_interface" "msp_security" {
-  count = 2
+  count               = 2
   name                = "${module.msp_security.network_interface.name}-${count.index}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
@@ -68,19 +68,6 @@ resource "azurerm_network_security_group" "subnet" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  
-  security_rule {
-    name                       = "AllowOutbound"
-    priority                   = 120
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  
-  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet" {
@@ -89,15 +76,15 @@ resource "azurerm_subnet_network_security_group_association" "subnet" {
 }
 
 resource "azurerm_network_security_group" "nic" {
-  count = 2
+  count               = 2
   name                = "nic-${module.msp_security.network_security_group.name}-${count.index}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
 
   security_rule {
-    name                       = "AllowHttps"
-    priority                   = 100
-    direction                  = "Inbound"
+    name                       = "AllowOutbound"
+    priority                   = 110
+    direction                  = "Outbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
@@ -109,13 +96,13 @@ resource "azurerm_network_security_group" "nic" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nic" {
-  count = 2
+  count                     = 2
   network_interface_id      = azurerm_network_interface.msp_security[count.index].id
   network_security_group_id = azurerm_network_security_group.nic[count.index].id
 }
 
 resource "azurerm_windows_virtual_machine" "msp_security" {
-  count              = 2
+  count               = 2
   name                = "${module.msp_security.virtual_machine.name}-${count.index}"
   computer_name       = substr("${module.msp_security.virtual_machine.name}-${count.index}", 0, 15)
   resource_group_name = azurerm_resource_group.msp_security.name
@@ -141,7 +128,7 @@ resource "azurerm_windows_virtual_machine" "msp_security" {
 }
 
 resource "azurerm_mssql_virtual_machine" "msp_security" {
-  count = 2
+  count                            = 2
   virtual_machine_id               = azurerm_windows_virtual_machine.msp_security[count.index].id
   sql_license_type                 = "PAYG"
   r_services_enabled               = true

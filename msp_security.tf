@@ -166,6 +166,5 @@ resource "azurerm_mssql_database" "msp_security" {
   license_type   = "LicenseIncluded"
   read_scale     = true
   sku_name       = "S0"
-  zone_redundant = true
   enclave_type   = "VBS"
 }

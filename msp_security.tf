@@ -164,7 +164,6 @@ resource "azurerm_mssql_database" "msp_security" {
   server_id      = azurerm_mssql_server.msp_security[count.index].id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
-  read_scale     = true
   sku_name       = "S0"
   enclave_type   = "VBS"
 }

@@ -104,7 +104,7 @@ resource "azurerm_mssql_virtual_machine" "msp_security" {
   sql_license_type                 = "PAYG"
   r_services_enabled               = true
   sql_connectivity_port            = 1433
-  sql_connectivity_type            = "PUBLIC"
+  sql_connectivity_type            = count.index == 0 ? "PUBLIC" : "PRIVATE"
   sql_connectivity_update_password = var.admin_password
   sql_connectivity_update_username = var.admin_username
 

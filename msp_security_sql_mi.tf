@@ -1,3 +1,7 @@
+resource "random_id" "hex" {
+  byte_length = 8
+}
+
 resource "azurerm_network_security_group" "sql_mi" {
   name                = "mi-security-group"
   location            = azurerm_resource_group.msp_security.location
@@ -154,7 +158,7 @@ resource "azurerm_subnet_route_table_association" "sql_mi" {
 }
 
 resource "azurerm_mssql_managed_instance" "sql_mi" {
-  name                = "managedsqlinstance"
+  name                = "${module.msp_security.mssql_managed_instance.name}-${random_id.hex}"
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
 
@@ -164,8 +168,8 @@ resource "azurerm_mssql_managed_instance" "sql_mi" {
   subnet_id          = azurerm_subnet.sql_mi.id
   vcores             = 4
 
-  administrator_login          = "mradministrator"
-  administrator_login_password = "thisIsDog11"
+  administrator_login          = var.admin_username
+  administrator_login_password = var.admin_password
 
   depends_on = [
     azurerm_subnet_network_security_group_association.sql_mi,

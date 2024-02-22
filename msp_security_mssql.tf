@@ -36,6 +36,7 @@ resource "azurerm_private_endpoint" "msp_security" {
   private_service_connection {
     name                           = "mssql-private-endpoint-connection-${count.index}"
     private_connection_resource_id = azurerm_mssql_server.msp_security[count.index].id
+    subresource_names = ["sqlServer"]
     is_manual_connection           = false
   }
 

@@ -1,5 +1,6 @@
-resource "random_id" "hex" {
-  byte_length = 8
+resource "random_string" "sql_mi" {
+    length  = 4
+    special = false
 }
 
 resource "azurerm_network_security_group" "sql_mi" {
@@ -158,7 +159,7 @@ resource "azurerm_subnet_route_table_association" "sql_mi" {
 }
 
 resource "azurerm_mssql_managed_instance" "sql_mi" {
-  name                = "${module.msp_security.mssql_managed_instance.name}-${random_id.hex}"
+  name                = "${module.msp_security.mssql_managed_instance.name}-${random_string.sql_mi.result}"
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
 

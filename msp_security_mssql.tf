@@ -10,9 +10,9 @@ resource "azurerm_mssql_server" "msp_security" {
 }
 
 resource "azurerm_mssql_database" "msp_security" {
-  count        = 2
+  count        = 4
   name         = "${module.msp_security.mssql_database.name}-${count.index}"
-  server_id    = azurerm_mssql_server.msp_security[count.index].id
+  server_id    = count.index % 2 == 0 ? azurerm_mssql_server.msp_security[0].id : azurerm_mssql_server.msp_security[1].id
   collation    = "SQL_Latin1_General_CP1_CI_AS"
   license_type = "LicenseIncluded"
   sku_name     = "Basic"
@@ -41,7 +41,7 @@ resource "azurerm_private_endpoint" "msp_security" {
     request_message = count.index == 0 ? jsonencode({
       "properties" = {
         "privateLinkServiceConnectionState" = {
-          "status" = "Approved",
+          "status"      = "Approved",
           "description" = "Auto-Approved"
         }
       }

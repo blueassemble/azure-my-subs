@@ -38,6 +38,14 @@ resource "azurerm_private_endpoint" "msp_security" {
     private_connection_resource_id = azurerm_mssql_server.msp_security[count.index].id
     subresource_names              = ["sqlServer"]
     is_manual_connection           = count.index == 0 ? true : false
+    request_message = count.index == 0 ? jsonencode({
+      "properties" = {
+        "privateLinkServiceConnectionState" = {
+          "status" = "Approved",
+          "description" = "Auto-Approved"
+        }
+      }
+    }) : null
   }
 
   private_dns_zone_group {

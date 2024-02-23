@@ -26,25 +26,26 @@ resource "azurerm_subnet" "private_endpoint" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-# resource "azurerm_private_endpoint" "msp_security" {
-#   count               = 2
-#   name                = "${module.msp_security.private_endpoint.name}-${count.index}"
-#   location            = azurerm_resource_group.msp_security.location
-#   resource_group_name = azurerm_resource_group.msp_security.name
-#   subnet_id           = azurerm_subnet.private_endpoint.id
+resource "azurerm_private_endpoint" "msp_security" {
+  count               = 2
+  name                = "${module.msp_security.private_endpoint.name}-${count.index}"
+  location            = azurerm_resource_group.msp_security.location
+  resource_group_name = azurerm_resource_group.msp_security.name
+  subnet_id           = azurerm_subnet.private_endpoint.id
 
-#   private_service_connection {
-#     name                           = "mssql-private-endpoint-connection-${count.index}"
-#     private_connection_resource_id = azurerm_mssql_server.msp_security[count.index].id
-#     subresource_names = ["sqlServer"]
-#     is_manual_connection           = false
-#   }
+  private_service_connection {
+    name                           = "mssql-private-endpoint-connection-${count.index}"
+    private_connection_resource_id = azurerm_mssql_server.msp_security[count.index].id
+    subresource_names              = ["sqlServer"]
+    is_manual_connection           = count.index == 0 ? true : false
+  }
 
-#   private_dns_zone_group {
-#     name                 = "mssql-private-endpoint-dns-group-${count.index}"
-#     private_dns_zone_ids = [azurerm_private_dns_zone.msp_security.id]
-#   }
-# }
+  private_dns_zone_group {
+    name                 = "mssql-private-endpoint-dns-group-${count.index}"
+    private_dns_zone_ids = [azurerm_private_dns_zone.msp_security.id]
+  }
+}
+
 
 resource "azurerm_private_dns_zone" "msp_security" {
   name                = "privatelink.database.windows.net"
@@ -57,3 +58,20 @@ resource "azurerm_private_dns_zone_virtual_network_link" "msp_security" {
   private_dns_zone_name = azurerm_private_dns_zone.msp_security.name
   virtual_network_id    = azurerm_virtual_network.msp_security.id
 }
+
+#   name                = "${module.msp_security.private_endpoint.name}-${count.index}"
+#   location            = azurerm_resource_group.msp_security.location
+#   resource_group_name = azurerm_resource_group.msp_security.name
+#   subnet_id           = azurerm_subnet.private_endpoint.id
+
+#   private_service_connection {
+#     name                           = "mssql-private-endpoint-connection-${count.index}"
+#     private_connection_resource_id = azurerm_mssql_server.msp_security[count.index].id
+#     subresource_names              = ["sqlServer"]
+#     is_manual_connection           = false
+#   }
+
+#   private_dns_zone_group {
+#     name                 = "mssql-private-endpoint-dns-group-${count.index}"
+#     private_dns_zone_ids = [azurerm_private_dns_zone.msp_security.id]
+#   }

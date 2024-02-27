@@ -28,12 +28,12 @@ jobs:
 
       - name: 'Terraform Format'
         run: terraform fmt -recursive
+             git add -A
 
       - name: 'Commit changes'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A
           if git diff --exit-code --quiet
           then
             echo "No changes to commit"

@@ -27,4 +27,17 @@ jobs:
         run: terraform validate
 
       - name: 'Terraform Format'
-        run: terraform fmt -check
+        run: terraform fmt
+
+      - name: 'Commit changes'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          if git diff --exit-code --quiet
+          then
+            echo "No changes to commit"
+          else
+            git commit -m "Apply terraform fmt"
+            git push
+          fi

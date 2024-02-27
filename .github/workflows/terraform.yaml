@@ -27,7 +27,7 @@ jobs:
         run: terraform validate
 
       - name: 'Terraform Format'
-        run: terraform fmt
+        run: terraform fmt -recursive
 
       - name: 'Commit changes'
         run: |

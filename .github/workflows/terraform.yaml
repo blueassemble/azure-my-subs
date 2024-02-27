@@ -28,8 +28,10 @@ jobs:
 
       - name: 'Terraform Format'
         run: terraform fmt -recursive
-             git add -A
-
+      
+      - name: 'Add changes'
+        run: git add -A
+          
       - name: 'Commit changes'
         run: |
           git config --local user.email "action@github.com"

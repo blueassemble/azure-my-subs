@@ -1,6 +1,7 @@
 resource "random_string" "synapse_workspace" {
   length  = 4
   special = false
+  upper = false
 }
 
 resource "azurerm_storage_account" "msp_security" {

@@ -5,7 +5,7 @@ resource "random_string" "synapse_workspace" {
 }
 
 resource "azurerm_storage_account" "msp_security" {
-  name                     = "${module.msp_security.storage_account.name}${random_string.synapse_workspace.result}"
+  name                     = "strg${random_string.synapse_workspace.result}"
   resource_group_name      = azurerm_resource_group.msp_security.name
   location                 = azurerm_resource_group.msp_security.location
   account_tier             = "Standard"

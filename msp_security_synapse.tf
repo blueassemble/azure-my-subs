@@ -26,6 +26,7 @@ resource "azurerm_synapse_workspace" "msp_security" {
   storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.msp_security.id
   sql_administrator_login              = var.admin_username
   sql_administrator_login_password     = var.admin_password
+  public_network_access_enabled = count.index ? true : false
 
   identity {
     type = "SystemAssigned"

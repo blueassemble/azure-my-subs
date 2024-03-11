@@ -35,4 +35,8 @@ resource "azurerm_synapse_workspace" "msp_security" {
   sql_administrator_login_password     = var.admin_password
   public_network_access_enabled = count.index==0 ? true : false
   managed_virtual_network_enabled = true
+
+  identity {
+    type = "SystemAssigned"
+  }
 }

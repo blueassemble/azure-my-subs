@@ -17,7 +17,7 @@ resource "azurerm_log_analytics_workspace" "sentinel" {
 }
 
 resource "azurerm_sentinel_log_analytics_workspace_onboarding" "sentinel" {
-  workspace_id = azurerm_log_analytics_workspace.sentinel.id
+  workspace_id                 = azurerm_log_analytics_workspace.sentinel.id
   customer_managed_key_enabled = false
 }
 

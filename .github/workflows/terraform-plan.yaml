@@ -6,7 +6,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "blueassemble"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "learn-terraform-github-actions"
+  TF_WORKSPACE: "azure-my-subs"
   CONFIG_DIRECTORY: "./"
 
 jobs:

@@ -3,7 +3,7 @@
 #   location = "korea central"
 # }
 
-data azurerm_client_config "current" {
+data "azurerm_client_config" "current" {
 }
 
 module "naming_default" {
@@ -13,8 +13,8 @@ module "naming_default" {
 }
 
 resource "azurerm_resource_group" "policy" {
-    name = module.naming_policy.resource_group.name
-    location = var.location
+  name     = module.naming_policy.resource_group.name
+  location = var.location
 }
 
 resource "azurerm_user_assigned_identity" "policy" {
@@ -23,7 +23,7 @@ resource "azurerm_user_assigned_identity" "policy" {
   resource_group_name = azurerm_resource_group.policy.name
 }
 resource "azurerm_role_assignment" "policy" {
-  scope = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
+  scope                = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
   role_definition_name = "Owner"
-  principal_id = azurerm_user_assigned_identity.policy.principal_id
+  principal_id         = azurerm_user_assigned_identity.policy.principal_id
 }

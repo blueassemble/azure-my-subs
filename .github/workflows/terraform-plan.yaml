@@ -29,11 +29,6 @@ jobs:
           directory: ${{ env.CONFIG_DIRECTORY }}
           speculative: true
 
-      - name: Terraform fmt and git commit
-        run: |
-          terraform fmt -recursive
-          git diff --exit-code || git commit -am "Terraform fmt"
-
       - name: Create Plan Run
         uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
         id: plan-run

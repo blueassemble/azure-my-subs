@@ -49,7 +49,6 @@ jobs:
           git checkout -b terraform-format
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
-          git pull --rebase origin terraform-format
           git push origin terraform-format
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 

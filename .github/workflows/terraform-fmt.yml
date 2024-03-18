@@ -15,8 +15,11 @@ jobs:
     name: "Terraform Format"
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
+      repository-projects: write
+      actions: write
+
 
     steps:
     - name: Checkout

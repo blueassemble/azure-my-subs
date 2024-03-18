@@ -58,19 +58,19 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-         // 1. 브랜치 이름 생성
-         const branchName = `terraform-format-${new Date().toISOString().slice(0, 10)}`;
+          // 1. 브랜치 이름 생성
+          const branchName = `terraform-format-${new Date().toISOString().slice(0, 10)}`;
           // 2. 브랜치 생성
           const createRef = await github.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
             ref: `refs/heads/${branchName}`,
-            sha: context.sha
+            sha: github.context.sha
           });
           // 3. PR 생성
           const pr = await github.pulls.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
             title: `Terraform Format`,
             head: branchName,
             base: 'main',

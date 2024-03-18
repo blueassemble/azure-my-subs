@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -33,20 +33,24 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -recursive ${{ env.WORKING_DIRECTORY }}
 
-    - name: git Commit
-      uses: actions/github-script@v6
-      id: commit
-      with:
-        script: |
-          const output = `terraform fmt -recursive ${process.env.WORKING_DIRECTORY}`;
-          console.log(output);
-          const result = exec(output);
-          console.log(result);
-          return result;
+    - name: git add
+      run: git add ${{ env.WORKING_DIRECTORY }}
 
-    - name: git Push
-      uses: ad-m/github-push-action@master
+    - name: git commit
+      run: git commit -m "Terraform Format" ${{ env.WORKING_DIRECTORY }}
+
+    - name: git push
+      run: git push
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
-        force: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Terraform Format"
+        title: "Terraform Format"
+        body: "Terraform Format"
+        branch: "terraform-format"
+        base: "main"
+        labels: "terraform-format"
+        draft: false
+

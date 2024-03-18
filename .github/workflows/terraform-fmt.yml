@@ -36,13 +36,13 @@ jobs:
 
     - name: Terraform Format
       run: | 
-        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} # Terraform 포맷팅
-        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} > format.diff # 포맷팅된 파일을 diff 파일로 저장
+        terraform fmt -recursive -check -diff ${{ env.WORKING_DIRECTORY }} > format.diff
         if [ -s format.diff ]; then
-        echo "TERRAFORM_FORMAT_DIFF=true" >> $GITHUB_ENV
+          echo "TERRAFORM_FORMAT_DIFF=true" >> $GITHUB_ENV
         fi
         rm -f format.diff
-
+        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }}
+    
     - name: git commit and push
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
       run: |
@@ -52,7 +52,7 @@ jobs:
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
           git push origin terraform-format
-
+    
     - name: Create Pull Request
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
       run: |

@@ -46,7 +46,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
-        if: env.TERRAFORM_FORMAT_DIFF == 'true'
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: git push
       run: git push

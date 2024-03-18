@@ -41,19 +41,14 @@ jobs:
         echo "TERRAFORM_FORMAT_DIFF=true" >> $GITHUB_ENV
         fi
 
-    - name: git add and commit
+    - name: git commit and push
       run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git checkout -b terraform-format
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
-      if: env.TERRAFORM_FORMAT_DIFF == 'true'
-
-    - name: git push
-      run: |
-        git pull origin terraform-format
-        git push origin terraform-format
+          git push origin terraform-format
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: Create Pull Request

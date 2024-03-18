@@ -9,6 +9,7 @@ on:
 env:
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}" # Terraform API 토큰
   WORKING_DIRECTORY: "." # 작업 디렉토리 설정
+  GH_TOKEN: "${{ github.token }}" # GitHub 토큰
 
 jobs:
   terraform:

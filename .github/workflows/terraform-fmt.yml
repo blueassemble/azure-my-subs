@@ -44,6 +44,7 @@ jobs:
         rm -f format.diff
 
     - name: git commit and push
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'
       run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -51,9 +52,8 @@ jobs:
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
           git push origin terraform-format
-      if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: Create Pull Request
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'
       run: |
         gh pr create --title "Terraform Format" --body "Terraform Format" --base terraform-format --head test
-      if: env.TERRAFORM_FORMAT_DIFF == 'true'

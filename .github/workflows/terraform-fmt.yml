@@ -34,19 +34,23 @@ jobs:
       run: terraform init # Terraform 초기화
 
     - name: Terraform Format
-      run: terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} # Terraform 포맷팅
+      run: | 
+        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} > format.diff # Terraform 포맷팅
+        if [ -s format.diff ]; then
+        echo "TERRAFORM_FORMAT_DIFF=true" >> $GITHUB_ENV
+        fi
 
-    - name: git add
-      run: git add ${{ env.WORKING_DIRECTORY }} # 변경사항 추가
-
-    - name: git commit
+    - name: git add and commit
       run: |
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
-        git commit -m "Terraform Format" # 커밋 생성
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add ${{ env.WORKING_DIRECTORY }}
+          git commit -m "Terraform Format"
+        if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: git push
-      run: git push # 변경사항 푸시
+      run: git push
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: Create Pull Request
       uses: actions/github-script@v6
@@ -73,3 +77,4 @@ jobs:
             body: `Terraform Format`,
           });
           return pr.data.html_url;
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'

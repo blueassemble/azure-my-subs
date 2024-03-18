@@ -50,19 +50,26 @@ jobs:
 
     - name: Create Pull Request
       uses: actions/github-script@v6
+      id: create_pr
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const title = "Terraform Format"
-          const body = "Terraform Format"
-          const head = "terraform-format"
-          const base = "main"
-          const res = await github.pulls.create({
+         // 1. 브랜치 이름 생성
+         const branchName = `terraform-format-${new Date().toISOString().slice(0, 10)}`;
+          // 2. 브랜치 생성
+          const createRef = await github.git.createRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: title,
-            body: body,
-            head: head,
-            base: base
-          })
-          console.log(res.data.html_url) // Pull Request의 URL 출력
+            ref: `refs/heads/${branchName}`,
+            sha: context.sha
+          });
+          // 3. PR 생성
+          const pr = await github.pulls.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Terraform Format`,
+            head: branchName,
+            base: 'main',
+            body: `Terraform Format`,
+          });
+          return pr.data.html_url;

@@ -36,7 +36,8 @@ jobs:
 
     - name: Terraform Format
       run: | 
-        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} > format.diff # Terraform 포맷팅
+        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} # Terraform 포맷팅
+        terraform fmt -recursive ${{ env.WORKING_DIRECTORY }} > format.diff # 포맷팅된 파일을 diff 파일로 저장
         if [ -s format.diff ]; then
         echo "TERRAFORM_FORMAT_DIFF=true" >> $GITHUB_ENV
         fi

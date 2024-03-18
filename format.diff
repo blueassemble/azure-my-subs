@@ -1,4 +1,4 @@
-[command]/home/runner/work/_temp/2a71652b-cb9a-49db-8199-9d9a83b5bb05/terraform-bin fmt -recursive .
+[command]/home/runner/work/_temp/744fb927-56ae-42b0-a276-a50e86d09935/terraform-bin fmt -recursive .
 ::debug::Terraform exited with code 0.
 ::debug::stdout: 
 ::debug::stderr: 

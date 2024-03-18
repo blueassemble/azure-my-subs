@@ -51,7 +51,9 @@ jobs:
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: git push
-      run: git push origin terraform-format
+      run: |
+        git pull origin terraform-format
+        git push origin terraform-format
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: Create Pull Request

@@ -46,14 +46,20 @@ jobs:
       run: git push
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      uses: actions/github-script@v6
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "Terraform Format"
-        title: "Terraform Format"
-        body: "Terraform Format"
-        branch: "terraform-format"
-        base: "main"
-        labels: "terraform-format"
-        draft: false
-
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const title = "Terraform Format"
+          const body = "Terraform Format"
+          const head = "terraform-format"
+          const base = "main"
+          const res = await github.pulls.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: title,
+            body: body,
+            head: head,
+            base: base
+          })
+          console.log(res.data.html_url)

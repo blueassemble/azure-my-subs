@@ -55,3 +55,4 @@ jobs:
     - name: Create Pull Request
       run: |
         gh pr create --title "Terraform Format" --body "Terraform Format" --base terraform-format --head test
+      if: env.TERRAFORM_FORMAT_DIFF == 'true'

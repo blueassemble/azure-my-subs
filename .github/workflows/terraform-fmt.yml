@@ -44,34 +44,15 @@ jobs:
       run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          git checkout -b terraform-format
           git add ${{ env.WORKING_DIRECTORY }}
           git commit -m "Terraform Format"
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: git push
-      run: git push
+      run: git push origin terraform-format
       if: env.TERRAFORM_FORMAT_DIFF == 'true'
 
     - name: Create Pull Request
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const { repo, owner } = context.repo;
-          const result = await github.rest.pulls.create({
-            title: 'Terraform Format',
-            owner,
-            repo,
-            head: '${{ github.ref_name}}',
-            base: 'main',
-            body: [
-              'Terraform Format',
-              'This PR is created by GitHub Actions'
-            ].join('\n')
-          });
-          github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: result.data.number,
-            labels: ['feature','automated pr','terraform format']
-          })
-          })
+      run: |
+        gh pr create --title "Terraform Format" --body "Terraform Format" --base terraform-format --head main

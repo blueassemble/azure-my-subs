@@ -1,7 +1,7 @@
 resource "random_string" "synapse_workspace" {
   length  = 4
   special = false
-  upper = false
+  upper   = false
 }
 
 resource "azurerm_virtual_network" "synapse_workspace" {
@@ -33,8 +33,8 @@ resource "azurerm_synapse_workspace" "msp_security" {
   storage_data_lake_gen2_filesystem_id = azurerm_storage_data_lake_gen2_filesystem.msp_security.id
   sql_administrator_login              = var.admin_username
   sql_administrator_login_password     = var.admin_password
-  public_network_access_enabled = count.index==0 ? true : false
-  managed_virtual_network_enabled = true
+  public_network_access_enabled        = count.index == 0 ? true : false
+  managed_virtual_network_enabled      = true
 
   identity {
     type = "SystemAssigned"

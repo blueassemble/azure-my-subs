@@ -1,7 +1,7 @@
 resource "azurerm_mariadb_server" "msp_security" {
-  name                = "msp_security-mariadb-server"
-  location            = azurerm_resource_group.msp_security.location
-  resource_group_name = azurerm_resource_group.msp_security.name
+    name                = "cyanassemble"
+    location            = azurerm_resource_group.msp_security.location
+    resource_group_name = azurerm_resource_group.msp_security.name
 
   administrator_login          = var.admin_username
   administrator_login_password = var.admin_password

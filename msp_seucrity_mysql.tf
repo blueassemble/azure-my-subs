@@ -7,7 +7,7 @@ resource "azurerm_mysql_server" "msp_security" {
   administrator_login          = var.admin_username
   administrator_login_password = var.admin_password
 
-  version = "12.0"
+  version = "8.0"
 
   ssl_enforcement_enabled = true
 }

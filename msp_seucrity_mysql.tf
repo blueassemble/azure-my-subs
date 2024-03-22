@@ -13,7 +13,7 @@ resource "azurerm_mysql_server" "msp_security" {
 }
 
 resource "azurerm_mysql_database" "example" {
-    name                = "exampledb"
+    name                = "cyanassemble"
     resource_group_name = azurerm_resource_group.msp_security.name
     server_name         = azurerm_mysql_server.msp_security.name
     collation = "SQL_Latin1_General_CP1_CI_AS"

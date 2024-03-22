@@ -1,5 +1,5 @@
 resource "azurerm_mariadb_server" "msp_security" {
-    name                = "msp_security-mariadb-server"
+    name                = "cyanassemble"
     location            = azurerm_resource_group.msp_security.location
     resource_group_name = azurerm_resource_group.msp_security.name
 

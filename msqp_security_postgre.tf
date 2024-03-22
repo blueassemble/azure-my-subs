@@ -1,6 +1,6 @@
 resource "azurerm_postgresql_server" "msp_security" {
 
-    name                = "cyanassemble"
+    name                = "cyanassemble01"
     location            = azurerm_resource_group.msp_security.location
     resource_group_name = azurerm_resource_group.msp_security.name
 

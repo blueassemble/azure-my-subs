@@ -12,7 +12,7 @@ resource "azurerm_mysql_server" "msp_security" {
   ssl_enforcement_enabled = true
 }
 
-resource "azurerm_mysql_database" "example" {
+resource "azurerm_mysql_database" "msp_security" {
   name                = "cyanmysql01"
   resource_group_name = azurerm_resource_group.msp_security.name
   server_name         = azurerm_mysql_server.msp_security.name

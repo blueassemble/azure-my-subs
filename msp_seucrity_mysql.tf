@@ -1,5 +1,5 @@
 resource "azurerm_mysql_server" "msp_security" {
-  name                = module.msp_security.mysql_server_name
+  name                = "cyanassemble"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
   sku_name            = "B_Gen5_2"

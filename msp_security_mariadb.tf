@@ -1,5 +1,5 @@
 resource "azurerm_mariadb_server" "msp_security" {
-    name                = "cyanassemble01"
+    name                = "cyanmaria01"
     location            = azurerm_resource_group.msp_security.location
     resource_group_name = azurerm_resource_group.msp_security.name
 
@@ -19,7 +19,7 @@ resource "azurerm_mariadb_server" "msp_security" {
 }
 
 resource "azurerm_mariadb_database" "msp_security" {
-  name                = "cyansassemble01"
+  name                = "cyanmaria01"
   resource_group_name = azurerm_resource_group.msp_security.name
   server_name         = azurerm_mariadb_server.msp_security.name
   charset             = "utf8"

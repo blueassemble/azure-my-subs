@@ -28,3 +28,7 @@ module "wjswk" {
   file_path           = each.value
   policy_name = trimsuffix(split("/",each.value)[2],".json")
 }
+
+output "policy_names" {
+  value = [for p in module.wjswk : p.definition.display_name]
+}

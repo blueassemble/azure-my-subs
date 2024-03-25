@@ -22,7 +22,7 @@
 module "wjswk" {
   source = "gettek/policy-as-code/azurerm//modules/definition"
   for_each = {
-    for p in fileset(path.module, ".policy_template/005930/*.json") :
+    for p in fileset(path.module, "./policy_template/005930/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
   file_path           = each.value

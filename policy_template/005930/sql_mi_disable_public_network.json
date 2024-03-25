@@ -1,5 +1,4 @@
 {
-    "name": "f3b3b3b4-7b0b-4b3b-8f3b-3b3b3b3b3b3b",
     "properties": {
         "displayName": "Azure SQL Managed Instances should disable public network access",
         "policyType": "BuiltIn",

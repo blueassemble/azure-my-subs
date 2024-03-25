@@ -26,4 +26,5 @@ module "wjswk" {
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
   file_path           = each.value
+  policy_name = trimsuffix(split("/",each.value)[2],".json")
 }

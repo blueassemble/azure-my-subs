@@ -34,8 +34,8 @@
                         "notEquals": "master"
                     },
                     {
-                        "field": "Microsoft.Sql/servers/databases/transparentDataEncryption.state",
-                        "notEquals": "Disabled"
+                        "field": "Microsoft.Sql/servers/databases/transparentDataEncryption[*].status",
+                        "equals": "Disabled"
                     }
                 ]
             },

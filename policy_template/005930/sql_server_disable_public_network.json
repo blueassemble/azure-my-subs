@@ -35,6 +35,9 @@
                         "notEquals": "Disabled"
                     }
                 ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
             }
         }
     }

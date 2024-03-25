@@ -1,12 +1,12 @@
-resource "azurerm_policy_set_definition" "wjswk" {
-  name         = "005930"
-  policy_type  = "Custom"
-  display_name = "005930"
+# resource "azurerm_policy_set_definition" "wjswk" {
+#   name         = "005930"
+#   policy_type  = "Custom"
+#   display_name = "005930"
 
-  policy_definition_reference {
-    policy_definition_id = azurerm_policy_definition.deploy_vm_auto_shutdown.id
-  }
-}
+#   policy_definition_reference {
+#     policy_definition_id = azurerm_policy_definition.deploy_vm_auto_shutdown.id
+#   }
+# }
 
 # resource "azurerm_subscription_policy_assignment" "wjswk" {
 #   name                 = "005930"

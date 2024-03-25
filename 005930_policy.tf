@@ -8,13 +8,22 @@ resource "azurerm_policy_set_definition" "wjswk" {
   }
 }
 
-resource "azurerm_subscription_policy_assignment" "wjswk" {
-  name                 = "005930"
-  subscription_id      = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
-  policy_definition_id = azurerm_policy_set_definition.wjswk.id
-  location             = azurerm_user_assigned_identity.policy.location
-  identity {
-    type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.policy.id]
+# resource "azurerm_subscription_policy_assignment" "wjswk" {
+#   name                 = "005930"
+#   subscription_id      = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
+#   policy_definition_id = azurerm_policy_set_definition.wjswk.id
+#   location             = azurerm_user_assigned_identity.policy.location
+#   identity {
+#     type         = "UserAssigned"
+#     identity_ids = [azurerm_user_assigned_identity.policy.id]
+#   }
+# }
+
+module "wjswk" {
+  source = "gettek/policy-as-code/azurerm//modules/definition"
+  for_each = {
+    for p in fileset(path.module, "../policy_template/*.json") :
+    trimsuffix(basename(p), ".json") => pathexpand(p)
   }
+  file_path           = each.value
 }

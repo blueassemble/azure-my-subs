@@ -17,3 +17,17 @@ resource "azurerm_cosmosdb_account" "msp_security" {
     failover_priority = 0
   }
 }
+
+resource "azurerm_private_endpoint" "example" {
+  count = 2
+  name                = "pe-cosmos-${count.index}"
+  location            = azurerm_resource_group.msp_security.location
+  resource_group_name = azurerm_resource_group.msp_security.name
+  subnet_id           = azurerm_subnet.msp_security.id
+
+  private_service_connection {
+    name                           = "psc-cosmos-${count.index}"
+    private_connection_resource_id = azurerm_cosmosdb_account.msp_security[count.index].id
+    is_manual_connection           = false
+  }
+}

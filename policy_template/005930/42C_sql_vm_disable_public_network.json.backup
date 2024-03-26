@@ -1,0 +1,43 @@
+{
+    "properties": {
+        "displayName": "Deny SQL VMs with Public Network Connectivity",
+        "policyType": "BuiltIn",
+        "mode": "All",
+        "description": "This policy denies the creation or modification of SQL virtual machines (VMs) that have a public network connectivity type.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "SQL"
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Deny"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.SqlVirtualMachine/SqlVirtualMachines"
+                    },
+                    {
+                        "field": "Microsoft.SqlVirtualMachine/SqlVirtualMachines/connectivityType",
+                        "equals": "Public"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

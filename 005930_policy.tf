@@ -30,5 +30,5 @@ module "wjswk" {
 }
 
 output "policy_names" {
-  value = [for p in module.wjswk : p.definition.display_name]
+  value = [for p in module.wjswk : p.definition.id]
 }

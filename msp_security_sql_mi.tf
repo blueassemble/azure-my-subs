@@ -159,7 +159,7 @@ resource "azurerm_subnet_route_table_association" "sql_mi" {
 }
 
 resource "azurerm_mssql_managed_instance" "sql_mi" {
-  name                = "${random_string.sql_mi.result}"
+  name                = module.msp_security.sql_mi.name
   resource_group_name = azurerm_resource_group.msp_security.name
   location            = azurerm_resource_group.msp_security.location
 

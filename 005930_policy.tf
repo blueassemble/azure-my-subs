@@ -43,7 +43,7 @@ module "wjswk_assignment" {
   source           = "gettek/policy-as-code/azurerm//modules/set_assignment"
   initiative       = module.wjswk_initiative.initiative
   assignment_scope = azurerm_resource_group.msp_security.id
-  
+
 }
 
 output "policy_names" {

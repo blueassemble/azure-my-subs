@@ -19,7 +19,7 @@ resource "azurerm_cosmosdb_account" "msp_security" {
 }
 
 resource "azurerm_private_endpoint" "example" {
-  count = 2
+  count               = 2
   name                = "pe-cosmos-${count.index}"
   location            = azurerm_resource_group.msp_security.location
   resource_group_name = azurerm_resource_group.msp_security.name
@@ -28,6 +28,7 @@ resource "azurerm_private_endpoint" "example" {
   private_service_connection {
     name                           = "psc-cosmos-${count.index}"
     private_connection_resource_id = azurerm_cosmosdb_account.msp_security[count.index].id
+    subresource_names              = ["sql", "mongodb", "cassandra", "gremlin", "table"]
     is_manual_connection           = false
   }
 }

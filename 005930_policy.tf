@@ -36,9 +36,9 @@ module wjswk_initiative {
   initiative_description  = "005930 Initiative"
   initiative_category     = "General"
 
-  member_definitions = [for p in module.wjswk : p.definition.id]
+  member_definitions = [for p in module.wjswk : p.definition]
 }
 
 output "policy_names" {
-  value = [for p in module.wjswk : p.definition.id]
+  value = [for p in module.wjswk : p.definition.name]
 }

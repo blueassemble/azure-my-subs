@@ -20,7 +20,7 @@
                     "Deny",
                     "Disabled"
                 ],
-                "defaultValue": "Audit"
+                "defaultValue": "Deny"
             }
         },
         "policyRule": {

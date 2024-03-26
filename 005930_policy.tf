@@ -25,11 +25,11 @@ module "wjswk" {
     for p in fileset(path.module, "./policy_template/005930/*.json") :
     trimsuffix(basename(p), ".json") => pathexpand(p)
   }
-  file_path           = each.value
-  policy_name = trimsuffix(split("/",each.value)[2],".json")
+  file_path   = each.value
+  policy_name = trimsuffix(split("/", each.value)[2], ".json")
 }
 
-module wjswk_initiative {
+module "wjswk_initiative" {
   source                  = "gettek/policy-as-code/azurerm//modules/initiative"
   initiative_name         = "005930 Initiative"
   initiative_display_name = "005930 Initiative"
@@ -37,6 +37,12 @@ module wjswk_initiative {
   initiative_category     = "General"
 
   member_definitions = [for p in module.wjswk : p.definition]
+}
+
+module "wjswk_assignment" {
+  source           = "gettek/policy-as-code/azurerm//modules/set_assignment"
+  initiative       = module.wjswk_initiative.initiative
+  assignment_scope = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
 }
 
 output "policy_names" {

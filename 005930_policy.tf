@@ -29,6 +29,16 @@ module "wjswk" {
   policy_name = trimsuffix(split("/",each.value)[2],".json")
 }
 
+module wjswk_initiative {
+  source                  = "gettek/policy-as-code/azurerm//modules/initiative"
+  initiative_name         = "005930 Initiative"
+  initiative_display_name = "005930 Initiative"
+  initiative_description  = "005930 Initiative"
+  initiative_category     = "General"
+
+  member_definitions = [for p in module.wjswk : p.definition.id]
+}
+
 output "policy_names" {
   value = [for p in module.wjswk : p.definition.id]
 }

@@ -42,9 +42,14 @@ module "wjswk_initiative" {
 module "wjswk_assignment" {
   source           = "gettek/policy-as-code/azurerm//modules/set_assignment"
   initiative       = module.wjswk_initiative.initiative
-  assignment_scope = "/subscriptions/${data.azurerm_client_config.current.subscription_id}"
+  assignment_scope = azurerm_resource_group.wjswk_rg.id
 }
 
+
+resource "azurerm_resource_group" "wjswk_rg" {
+  name     = "rg-wjswk"
+  location = "eastus"
+}
 output "policy_names" {
   value = [for p in module.wjswk : p.definition.name]
 }

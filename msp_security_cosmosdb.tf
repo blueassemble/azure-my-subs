@@ -28,7 +28,7 @@ resource "azurerm_private_endpoint" "example" {
   private_service_connection {
     name                           = "psc-cosmos-${count.index}"
     private_connection_resource_id = azurerm_cosmosdb_account.msp_security[count.index].id
-    subresource_names              = ["sql", "mongodb", "cassandra", "gremlin", "table"]
+    subresource_names              = ["sql"]
     is_manual_connection           = false
   }
 }
